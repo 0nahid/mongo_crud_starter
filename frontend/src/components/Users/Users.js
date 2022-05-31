@@ -11,7 +11,7 @@ const Users = () => {
     <div>
       <h2>This are {users.length} users</h2>
       <div>
-        {users.map((user) => (
+        {users?.map((user) => (
           <div
             key={user._id}
             style={{
@@ -21,6 +21,10 @@ const Users = () => {
             }}
           >
             {user.name} - {user.email}
+            <span style={{margin:'10px', padding:'10px'}} >
+              <button>X</button>
+              <button>Update</button>
+            </span>
           </div>
         ))}
       </div>
