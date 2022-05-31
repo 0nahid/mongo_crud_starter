@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5500;
 require("dotenv").config();
 
 // connect to monogoDB
@@ -28,14 +28,12 @@ async function run() {
     const result = await usersCollection.insertOne(doc);
     console.log(`A document was inserted with the _id: ${result.insertedId}`);
 
-    // post api 
+    // post api
     app.post("g", (req, res) => {
-        const user = req.body;
-        usersCollection.insertOne(user);    
-        res.send(user);
+      const user = req.body;
+      usersCollection.insertOne(user);
+      res.send(user);
     });
-    
-
   } finally {
     await client.close();
   }
