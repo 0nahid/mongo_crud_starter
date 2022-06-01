@@ -1,5 +1,5 @@
 import { useRef } from "react";
-
+import Swal from "sweetalert2";
 const AddUser = () => {
   const nameRef = useRef();
   const emailRef = useRef();
@@ -18,9 +18,9 @@ const AddUser = () => {
       .then((data) => {
         // show alert after successful insert
         data.insertedId
-          ? alert("User added successfully")
+          ? Swal.fire("Congratulation!", "User added succcessfully!", "success")
           : alert("User not added");
-        e.target.reset();
+        e.target.reset(); 
       });
     e.preventDefault();
   };
