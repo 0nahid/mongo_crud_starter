@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import AddUser from "./components/AddUser/AddUser";
 import Header from "./components/Header/Header";
-import Home from "./components/Home/Home";
 import UpdateUser from "./components/UpdateUser/UpdateUser";
 import Users from "./components/Users/Users";
 
@@ -13,9 +12,7 @@ function App() {
         <div>
           <Header></Header>
           <Switch>
-            <Route exact path="/">
-              <Home></Home>
-            </Route>
+            <Route exact path="/" component={Users}></Route>
             <Route exact path="/users">
               <Users></Users>
             </Route>

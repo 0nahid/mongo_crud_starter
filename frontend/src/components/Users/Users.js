@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -63,10 +64,18 @@ const Users = () => {
               margin: "10px",
             }}
           >
-            {user.name} - {user.email}
+            <span style={{ fontWeight: "bold", hover: "pointer" }}>
+              {user.name}
+            </span>{" "}
+            - {user.email}
             <span style={{ margin: "10px", padding: "10px" }}>
-              <button onClick={() => handleDeleteUser(user._id)}>X</button>
-              <button>Update</button>
+              <button onClick={() => handleDeleteUser(user._id)}>
+                Delete{" "}
+              </button>
+              <Link to={`/users/update/${user._id}`}>
+                {" "}
+                <button>Edit</button>{" "}
+              </Link>
             </span>
           </div>
         ))}

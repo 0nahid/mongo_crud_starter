@@ -48,6 +48,13 @@ async function run() {
       res.json(users);
     });
 
+    // load specified user  
+    app.get("/api/users/:id", async (req, res) => {
+      const id = req.params.id;
+      const user = await usersCollection.findOne({ _id: ObjectId(id) });
+      res.json(user);
+    });
+
     // delete api
     app.delete("/api/users/:id", async (req, res) => {
       const { id } = req.params;
