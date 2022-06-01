@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import Swal from "sweetalert2";
 const Users = () => {
   const [users, setUsers] = useState([]);
   useEffect(() => {
@@ -9,14 +9,45 @@ const Users = () => {
   }, []);
 
   const handleDeleteUser = (id) => {
-    fetch(`http://localhost:5500/api/users/${id}`, {
-      method: "DELETE",
-    })
-    .then(res => res.json())
-    .then(data => {
-      data.deletedCount? alert("User deleted") : alert("User not found"); 
-      setUsers(users.filter(user => user._id !== id));
-    })
+    // add user confirmation for delete
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5500/api/users/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            data.deletedCount
+              ? Swal.fire("Deleted!", "Your file has been deleted.", "success")
+              : alert("User not found");
+            setUsers(users.filter((user) => user._id !== id));
+          });
+      }
+    });
+    // if (procced) {
+    //   fetch(`http://localhost:5500/api/users/${id}`, {
+    //     method: "DELETE",
+    //   })
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       data.deletedCount
+    //         ? Swal.fire({
+    //             position: "top-end",
+    //             icon: "success",
+    //             title: "User deleted",
+    //           })
+    //         : alert("User not found");
+    //       setUsers(users.filter((user) => user._id !== id));
+    //     });
+    // }
   };
 
   return (
