@@ -10,7 +10,7 @@ require("dotenv").config();
 
 // connect to monogoDB
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://admin:WgYNVdQbGlf53rL9@cluster0.kdv7q.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
@@ -47,8 +47,15 @@ async function run() {
       const users = await usersCollection.find({}).toArray();
       res.json(users);
     });
-    
 
+    // delete api
+    app.delete("/api/users/:id", async (req, res) => {
+      const { id } = req.params;
+      const query = { _id: ObjectId(id) };
+      const result = await usersCollection.deleteOne(query);
+      console.log("deleting user", result);
+      res.json(result);
+    });
   } finally {
     // await client.close();
   }
