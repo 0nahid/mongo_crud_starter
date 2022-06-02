@@ -48,11 +48,27 @@ async function run() {
       res.json(users);
     });
 
-    // load specified user  
+    // load specified user
     app.get("/api/users/:id", async (req, res) => {
       const id = req.params.id;
       const user = await usersCollection.findOne({ _id: ObjectId(id) });
       res.json(user);
+    });
+
+    // put api
+    app.put("/api/users/:id", async (req, res) => {
+      const id = req.params.id;
+      const user = req.body;
+      const filter = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          name: user.name,
+          email: user.email,
+        },
+      };
+      const result = await usersCollection.updateOne(filter, updateDoc, options);
+      res.json(result);
     });
 
     // delete api

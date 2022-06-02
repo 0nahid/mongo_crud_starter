@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-
+import Swal from "sweetalert2";
 const UpdateUser = () => {
   const { id } = useParams();
   const [user, setUser] = useState({});
@@ -9,12 +9,76 @@ const UpdateUser = () => {
       .then((res) => res.json())
       .then((data) => setUser(data));
   }, [id]);
+  // update user
+  const handleNameChange = (e) => {
+    setUser({ ...user, name: e.target.value });
+  };
+  const handleEmailChange = (e) => {
+    setUser({ ...user, email: e.target.value });
+  };
+
+  const handleUpdateUser = (e) => {
+    e.preventDefault();
+    fetch(`http://localhost:5500/api/users/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        data.modifiedCount > 0
+          ? Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "User updated",
+            })
+          : alert("User not found");
+      });
+  };
 
   return (
     <div>
-      <div style={{background:'violate'}}>
-        <p>User name : {user.name}</p>
-        <p>User email : {user.email}</p>
+      <div style={{ background: "violate" }}>
+        <form onSubmit={handleUpdateUser}>
+          <input
+            style={{
+              width: "600px",
+              border: "none",
+              borderBottom: "1px solid black",
+              outline: "none",
+            }}
+            onChange={handleNameChange}
+            type="text"
+            name="name"
+            value={user.name || ""}
+          />
+          <br /> <br />
+          <input
+            style={{
+              width: "600px",
+              border: "none",
+              borderBottom: "1px solid black",
+              outline: "none",
+            }}
+            onChange={handleEmailChange}
+            type="email"
+            name="email"
+            value={user.email || ""}
+          />
+          <br />
+          <br />
+          <input
+            style={{
+              border: "none",
+              padding: "05px 15px",
+              borderRadius: "4px",
+            }}
+            type="submit"
+            value="Submit"
+          />
+        </form>
       </div>
     </div>
   );
