@@ -61,20 +61,46 @@ const Users = () => {
             style={{
               backgroundColor: "salmon",
               padding: "10px",
-              margin: "10px",
+              borderRadius: "10px",
+              width: "900px",
+              margin: "10px auto",
             }}
           >
             <span style={{ fontWeight: "bold", hover: "pointer" }}>
               {user.name}
             </span>{" "}
             - {user.email}
-            <span style={{ margin: "10px", padding: "10px" }}>
-              <button onClick={() => handleDeleteUser(user._id)}>
+            <span
+              style={{
+                border: "none",
+                padding: "5px 15px",
+                borderRadius: "4px",
+                outline: "none",
+              }}
+            >
+              <button
+                style={{
+                  border: "none",
+                  padding: "05px 15px",
+                  borderRadius: "4px",
+                  outline: "none",
+                }}
+                onClick={() => handleDeleteUser(user._id)}
+              >
                 Delete{" "}
               </button>
               <Link to={`/users/update/${user._id}`}>
                 {" "}
-                <button>Edit</button>{" "}
+                <button
+                  style={{
+                    border: "none",
+                    padding: "05px 15px",
+                    borderRadius: "4px",
+                    outline: "none",
+                  }}
+                >
+                  Edit
+                </button>{" "}
               </Link>
             </span>
           </div>

@@ -20,7 +20,7 @@ const AddUser = () => {
         data.insertedId
           ? Swal.fire("Congratulation!", "User added succcessfully!", "success")
           : alert("User not added");
-        e.target.reset(); 
+        e.target.reset();
       });
     e.preventDefault();
   };
@@ -35,7 +35,16 @@ const AddUser = () => {
         Email : <input type="email" required ref={emailRef} name="email" />
         <br />
         <br />
-        <input type="submit" value="Submit" />
+        <input
+          style={{
+            border: "none",
+            padding: "05px 15px",
+            borderRadius: "4px",
+            outline: "none",
+          }}
+          type="submit"
+          value="Submit"
+        />
       </form>
     </div>
   );

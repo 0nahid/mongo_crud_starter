@@ -34,13 +34,25 @@ const UpdateUser = () => {
               icon: "success",
               title: "User updated",
             })
-          : alert("User not found");
+          : Swal.fire(
+              "Really want to change?",
+              "Then edit something first!!!",
+              "question"
+            );
       });
   };
 
   return (
     <div>
-      <div style={{ background: "violate" }}>
+      <div
+        style={{
+          background: "#8e1bf2",
+          width: "1000px",
+          margin: "100px auto",
+          padding: "40px",
+          borderRadius: "5px",
+        }}
+      >
         <form onSubmit={handleUpdateUser}>
           <input
             style={{
